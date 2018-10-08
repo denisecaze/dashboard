@@ -1,43 +1,29 @@
-# Link Catcher
-A library designed to filter links in markdown language.
+# Dashboard
+A dashboard with data about Laboratoria's students. 
 
 ## Motivation
-This was the final project of the fourth sprint of Laboratoria bootcamp. The challenge was to create an npm library to capture links in markdown language using Regex. In addition, using Mocha, Chai and NYC to perform unit tests.
-
-## Installation
-+ Requires Node.js, NPM and Lodash. If you do not have it, go to:
-	1. [Node + NPM](https://nodejs.org/en/download/);
-	2. [Lodash](https://lodash.com/);
-+ In the terminal, go to the folder where you want to use the library and then type:
-```
-$ npm install dc-link-catcher-lib
-```
-
-## Use
-```
-$ node
-> const library = require("dc-link-catcher-lib")
-> library.getLinksFromMd("this is Google's link: [google](www.google.com)") 
-> //[ {href: "www.google.com", text: "google"} ]
-```
+It was the final project of the third sprint of Laboratoria bootcamp. Working in pairs, it was necessary to create a desktop website to be used by Laboratoria's trainning managers. Where it would be possible to verify data of students, mentors and the institution in general. These information should be grouped in headquarters and your classes.
 
 ## Appearance
-![App map](./images/link-catcher.png)
+![App map](./assets/images/dashboard.png)
+
+## Use
+If you want to access, put the username *juliana* and the password *gatinhos*.
 
 ## Technology Stack
 + HTML5
 + CSS3
 + JavaScript 
-+ NPM
-+ Mocha
-+ Chai
-+ NYC
-+ Lodash
++ [Google Charts](https://developers.google.com/chart/) 
 
 ## Oficial Roadmap
 
+#### versão 3.0.0 (scheduled for January 2019)
++ Home page improvement.
+
 #### version 2.0.0 (scheduled for November 2018)
-+ Implementation of recognition of more complex URLs: with protocol, domain, paths, resource, query_string and fragment.
++ Code refactoring (using ES6).
 
 #### version 1.0.0 (released)
-+ Can capture links and titles and save it in an object. These links could have or not have a protocol (http://, https://) or a path (/path).
++ It is possible to visualize in graphs a series of data about all headquarters and classes of Laboratoria. In addition, in each class we present some specific data about the students, such as general average, photo and description of the profile.
+
