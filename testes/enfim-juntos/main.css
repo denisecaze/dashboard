@@ -1,0 +1,173 @@
+/* Configurações gerais */
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  background-color: #F7F7F7; 
+}
+
+/* Cabeçalho */
+.header {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.header-top {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid grey;
+}
+
+.logo {
+  width: 280px;
+  height: 80px;
+}
+
+.user {
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 40px;    
+}
+
+.profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.logout {
+  text-decoration: none;
+  background-color: #ddd;
+  color: grey;
+  font-family: inherit;
+  font-size: 12px;
+  border: 1px solid white;
+  padding: 2px 2px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background-color: #FCC9E2;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+}
+
+#local-menu, #generation-menu {
+  width: 210px; 
+  height: 30px; 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  appearance: none; 
+  background: url(http://www.webcis.com.br/images/imagens-noticias/select/ico-seta-appearance.gif) no-repeat #eeeeee;  
+  background-position: 180px center; 
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  padding-left: 8px;
+  outline: 0;
+}
+
+/* Principal */
+.main {
+  width: 100%;
+  height: 550px;
+  display: grid;
+  grid-template-columns: 3% 11% 11% 11% 11% 11% 11% 24%; 
+  grid-template-rows: 33% 33% 30%;
+  grid-template-areas: 
+  "label-a chart-a chart-a chart-a chart-b chart-b chart-b chart-c"
+  "label-a chart-a chart-a chart-a chart-b chart-b chart-b chart-d"
+  "label-b chart-e chart-e chart-f chart-f chart-g chart-g chart-h";
+  grid-gap: 10px;
+  justify-content: center;
+  padding: 15px 0px;
+}
+
+.styling {
+  background-color: white;
+  border-radius: 7px;
+  padding: 10px;
+  border: 1px solid #EEE;
+  box-shadow: 0px 3px 6px 10px rgba(114, 114, 114, 1.); 
+}
+
+.label-a {
+  grid-area: label-a;
+  background-color: #A1FBC7;
+  border-radius: 0px;
+}
+
+.label-b {
+  grid-area: label-b;
+  background-color: #A1FBC7;
+  border-radius: 0px;
+}
+
+.vertical-text-1, .vertical-text-2 {
+  -moz-transform: rotate(-90deg); 
+  -webkit-transform: rotate(-90deg); 
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); 
+  font-weight: bold;
+}
+
+.vertical-text-1 {
+  margin-top: 200px;
+}
+
+.vertical-text-2 {
+  margin-top: 80px;
+}
+
+.chart-a {
+  grid-area: chart-a;
+}
+
+.chart-b {
+  grid-area: chart-b;
+}
+
+.chart-c {
+  grid-area: chart-c;
+}
+
+.chart-d {
+  grid-area: chart-d;
+}
+
+.chart-e {
+  grid-area: chart-e;
+}
+
+.chart-f {
+  grid-area: chart-f;
+}
+
+.chart-g {
+  grid-area: chart-g;
+}
+
+.chart-h {
+  grid-area: chart-h;
+}

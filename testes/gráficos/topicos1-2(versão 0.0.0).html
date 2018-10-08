@@ -1,0 +1,88 @@
+<!-- 1.1.  O número total de alunas presentes pela sede e geração. Barra stacked  
+1.2.  A porcentagem de alunas desistentes. Quadro com números
+Por sede. O gráfico mostra, em cada barra de geração, o total, quantas concluíram e desistiram. Nos quadrados, quantas se matricularam, quantas concluíram e quantas desistiram. -->
+
+<html>
+
+  <head>
+    <script type="text/javascript" src="data.js"></script>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      google.charts.load('current', {packages: ['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawStacked);
+
+      function drawStacked() {
+
+        for (i in window.data) {
+          var seat = window.data[i];
+          var seatEnrollment = [];
+          console.log(i);
+          for (generation in seat) {
+            var students = seat[generation]['students'];
+            var activeStudents = 0;
+            var inactiveStudents = 0;
+            var activity = [];
+            var inactivity = [];
+            var generationEnrollment = [];
+            console.log(generation);
+            for (student in students) {
+              var totalStudents = students.length;
+              console.log(students[student].name);
+              console.log(students[student].active);
+              if (students[student].active === true) {
+                activeStudents += 1;
+                activity.push(students[student].name);
+              } else {
+                inactiveStudents += 1;
+                inactivity.push(students[student].name);
+              }
+              generationEnrollment = [generation, activeStudents, inactiveStudents];
+            }
+            console.log(totalStudents);
+            console.log(activity);
+            console.log(inactivity);
+            console.log(activeStudents);
+            console.log(inactiveStudents);
+            console.log(generationEnrollment);
+            seatEnrollment.push(generationEnrollment);
+          }
+
+        }
+          console.log(i, seatEnrollment); // colocar aqui o dado no gráfico
+
+            var data = new google.visualization.DataTable();
+            // data.addColumn('string', 'seat');
+            data.addColumn('string', 'generation');
+            data.addColumn('number', 'activeStudents');
+            data.addColumn('number', 'inactiveStudents');
+            data.addRows(
+            seatEnrollment  
+            );
+
+
+            var options = {
+              title: 'Concluintes e desistentes',
+              isStacked: true,
+              hAxis: {
+                title: 'Geração',
+              },
+              vAxis: {
+                title: 'Quantidade',
+              },
+             'colors': ['blue', 'green']
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+          }
+
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>

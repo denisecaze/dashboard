@@ -1,0 +1,141 @@
+<!-- 2.1.  O número de alunas que excedem a meta de pontos, em média, de todos os sprints realizados. O objetivo dos pontos é 70% do total de pontos em HSE e em tecnologia. Área
+2.2.  A porcentagem que representa os dados anteriores em relação ao total de alunas. 
+Por sede. O gráfico mostra, em cada barra de geração, a quantidade de alunas aprovadas com média maior ou igual a 70% em hse e tech. Nos quadrados, em um, o total de alunas da sede e, no outro, a quantidade e porcentagem das que foram aprovadas nos dois.  -->
+
+
+<!-- =========
+FALTA AJUSTAR PARA GERAÇÃO, POIS ESTÁ COMO SEDE. 
+A última geração de SCL tem dois undefined e a CDMX tem vários NaN
+=========
+ -->
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Teste</title>
+    </head>
+    <body>
+      <select id="local-menu">
+      </select>
+
+      <select id="generation-menu">
+      </select>
+
+      <div id="chart_div"></div>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript" src="data.js"></script>
+      <script type="text/javascript">
+
+        var localMenu = document.getElementById("local-menu");
+        var generationMenu = document.getElementById("generation-menu");
+
+        window.onload = loadMenuLocal();
+        localMenu.addEventListener("change", loadMenuGeneration);
+        generationMenu.addEventListener("change", drawBasic);
+
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(achievement);
+
+        function loadMenuLocal(){
+          var dropMenu = document.getElementById("local-menu");
+          dropMenu.innerHTML = "";
+          var name = document.createElement("option");
+          name.innerHTML = "Sede";
+          name.value = "name";
+          dropMenu.appendChild(name);
+          for(place in data){
+            var itemMenu = document.createElement("option");
+            console.log(place);
+            itemMenu.value = place;
+            itemMenu.innerHTML = place;
+            dropMenu.appendChild(itemMenu);
+          }
+        }
+
+        function loadMenuGeneration(){
+          var place = localMenu.value;
+          var dropMenu = document.getElementById("generation-menu");
+          dropMenu.innerHTML = "";
+          var name = document.createElement("option");
+          name.innerHTML = "Turma";
+          name.value = "name";
+          dropMenu.appendChild(name);
+          for(generation in data[place]){
+            // var group = data[place][generation];
+            // console.log(place, generation);
+            var itemMenu = document.createElement("option");
+            itemMenu.value = generation;
+            itemMenu.innerHTML = generation;
+            dropMenu.appendChild(itemMenu);
+          }
+        } 
+
+        function achievement() {
+          var place = localMenu.value;
+          var generation = generationMenu.value;
+          var students = data[place][generation]['students'];
+          var expectedTechAverage = 1260;
+          var expectedHseAverage = 840;
+          var array = [];
+          for (student in students) {
+            var totalStudentsAboveAverage = 0;
+            var sprints = students[student]['sprints'];
+            var sumTech = 0;
+            var sumHse = 0;
+            for (sprint in sprints) {
+              var studentsTechHseAverages = [];
+              var techMark = sprints[sprint]['score']['tech'];
+              var hseMark = sprints[sprint]['score']['hse'];
+              console.log(student,techMark);
+              console.log(student,hseMark);
+              if (techMark >= expectedTechAverage && hseMark >= expectedHseAverage) {
+                totalStudentsAboveAverage += 1;
+                console.log(sprint);
+              }
+              array.push(totalStudentsAboveAverage);
+            }
+            console.log(totalStudentsAboveAverage);
+          }
+          console.log(array);
+          return array;
+        }
+
+        function drawBasic() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'generation');
+          data.addColumn('number', 'totalStudentsAboveAverage');
+          data.addRows(achievement());
+          var options = {
+            'title': 'Alunas acima da média em todos os sprints',
+            'legend': { position: 'end', maxLines: 2 },
+            'chartArea': {left: 90, width: '60%', height: '70%'},
+            'hAxis': {
+              title: 'geração',
+              minValue: 0,
+              // maxValue: 20,
+            },
+            'vAxis': {
+              title: 'quantidade',
+              minValue: 0,
+              maxValue: 15,
+              // ticks: [0,2,4,6,8,10,12,14,16], 
+              // gridlines: {count: 5}
+            },
+            'width': 800,
+            'height': 400, 
+            'colors': ['lightblue']
+          };
+          var chart = new google.visualization.ColumnChart(
+          document.getElementById('chart_div'));
+          chart.draw(data, options);
+        }
+
+      </script>
+    </body>
+  </html>
+
+
+
+
+

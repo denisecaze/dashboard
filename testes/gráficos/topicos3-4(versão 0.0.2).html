@@ -1,0 +1,101 @@
+<!-- 2.1.  O número de alunas que excedem a meta de pontos, em média, de todos os sprints realizados. O objetivo dos pontos é 70% do total de pontos em HSE e em tecnologia. Área
+2.2.  A porcentagem que representa os dados anteriores em relação ao total de alunas. 
+Por sede. O gráfico mostra, em cada barra de geração, a quantidade de alunas aprovadas com média maior ou igual a 70% em hse e tech. Nos quadrados, em um, o total de alunas da sede e, no outro, a quantidade e porcentagem das que foram aprovadas nos dois.  -->
+
+<!-- A última geração de SCL tem dois undefined e a CDMX tem vários NaN-->
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Teste</title>
+    </head>
+    <body>
+      <select id="drop-menu">
+      </select>
+      <div id="teste"></div>
+      <script type="text/javascript" src="data.js"></script>
+      <script type="text/javascript">
+
+        var dropMenu = document.getElementById("drop-menu");
+        dropMenu.addEventListener("change", achievement);
+
+        window.onload = loadMenu();
+
+        function loadMenu(){
+          var dropMenu = document.getElementById("drop-menu");
+          dropMenu.innerHTML = "";
+          var none = document.createElement("option");
+          none.value = "none";
+          none.innerHTML = "selecione";
+          dropMenu.appendChild(none);
+          for(place in data){
+            var itemMenu = document.createElement("option");
+            itemMenu.value = place;
+            itemMenu.innerHTML = place;
+            dropMenu.appendChild(itemMenu);
+          }
+        }
+
+        function achievement() {
+          var place = dropMenu.value;
+          var testePrint = document.getElementById("teste");
+          testePrint.innerHTML="";
+          var expectedTechAverage = 1260;
+          var expectedHseAverage = 840;
+          var studentsPerPlace = 0;
+          var totalStudentsAboveAverage = 0;
+          for(generation in data[place]){
+            var studentsTechHseAverages = [];
+            // console.log(data[place][generation]);
+            var students = data[place][generation]['students'];
+            // console.log(students);
+            var studentsAboveAvaragePerGeneration = 0;
+            for (student in students) {
+              // console.log(students[student].name);
+              var sprints = students[student]['sprints'];
+              var sumTech = 0;
+              var sumHse = 0;
+              for (sprint in sprints) {
+                var techMark = sprints[sprint]['score']['tech'];
+                var hseMark = sprints[sprint]['score']['hse'];
+                sumTech += techMark;
+                sumHse += hseMark;
+                // console.log(techMark);
+                // console.log(hseMark);
+              }
+              // console.log(sumTech);
+              // console.log(sumHse);
+              // console.log(sprints.length); 
+              var techAverage = Math.ceil(sumTech / sprints.length);
+              var hseAverage = Math.ceil(sumHse / sprints.length);
+              // console.log(techAverage); 
+              // console.log(hseAverage); 
+              studentsTechHseAverages.push([students[student].name, techAverage, hseAverage]);
+              if (techAverage >= expectedTechAverage && hseAverage >= expectedHseAverage) {
+                studentsAboveAvaragePerGeneration += 1;
+              }
+            }
+            studentsPerPlace += students.length;
+            console.log(studentsTechHseAverages);
+            console.log(studentsAboveAvaragePerGeneration);
+            totalStudentsAboveAverage += studentsAboveAvaragePerGeneration;
+          }
+          console.log(totalStudentsAboveAverage);
+          console.log(studentsPerPlace);
+          var percentual = Math.round((totalStudentsAboveAverage * 100) / studentsPerPlace);
+          console.log(percentual);
+          // var notas = document.createElement("p");
+          // notas.textContent = percentual;
+          // testePrint.append(notas);
+        }
+
+      </script>
+
+    </body>
+  </html>
+
+
+
+
+

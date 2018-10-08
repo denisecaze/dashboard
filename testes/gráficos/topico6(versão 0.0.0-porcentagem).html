@@ -1,0 +1,136 @@
+<!-- 4.  A quantidade e porcentagem que representa o total de alunas que excedem a meta de pontos técnicos em média e sprint. Combo chart
+Por sede, por geração. O gráfico mostra o somatório das notas de cada aluna. E, apresenta a linha da média. E, em donut, a porcentagem das que atingiram a meta de 70%. Com abas por geração. -->
+
+
+<!-- =========
+DIMINUIR TAMANHO LEGENDAS, POIS ALGUNS NOMES DE ALUNAS NÃO APARECEM. FAZER LINHA HORIZONTAL QUE REPRESENTE A MÉDIA EXIGIDA
+=========
+ -->
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Teste</title>
+    </head>
+    <body>
+      <select id="local-menu">
+      </select>
+
+      <select id="generation-menu">
+      </select>
+
+      <div id="tech-percentage" style="width: 900px; height: 500px;"></div>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript" src="data.js"></script>
+      <script type="text/javascript">
+
+        var localMenu = document.getElementById("local-menu");
+        var generationMenu = document.getElementById("generation-menu");
+
+        window.onload = loadMenuLocal();
+        localMenu.addEventListener("change", loadMenuGeneration);
+        generationMenu.addEventListener("change", drawBasic);
+
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(techPercentage);
+
+        function loadMenuLocal(){
+          var dropMenu = document.getElementById("local-menu");
+          dropMenu.innerHTML = "";
+          var name = document.createElement("option");
+          name.innerHTML = "Sede";
+          name.value = "name";
+          dropMenu.appendChild(name);
+          for(place in data){
+            var itemMenu = document.createElement("option");
+            console.log(place);
+            itemMenu.value = place;
+            itemMenu.innerHTML = place;
+            dropMenu.appendChild(itemMenu);
+          }
+        }
+
+        function loadMenuGeneration(){
+          var place = localMenu.value;
+          var dropMenu = document.getElementById("generation-menu");
+          dropMenu.innerHTML = "";
+          var name = document.createElement("option");
+          name.innerHTML = "Turma";
+          name.value = "name";
+          dropMenu.appendChild(name);
+          for(generation in data[place]){
+            // var group = data[place][generation];
+            console.log(place, generation);
+            var itemMenu = document.createElement("option");
+            itemMenu.value = generation;
+            itemMenu.innerHTML = generation;
+            dropMenu.appendChild(itemMenu);
+          }
+        }
+
+        function techPercentage() {
+          var place = localMenu.value;
+          var generation = generationMenu.value;
+          var students = data[place][generation]['students'];
+          // console.log(students);
+          var array = [];
+          var studentsTechAverages = [];
+          var expectedTechAverage = 1260;
+          var totalStudents = 0;
+          var studentsAboveAverage = 0;
+          for (student in students) {
+            // console.log(students[student].name);
+            var sprints = students[student]['sprints'];
+            var sumTech = 0;
+            var sumHse = 0;
+            for (sprint in sprints) {
+              var techMark = sprints[sprint]['score']['tech'];
+              sumTech += techMark;
+              // console.log(techMark);
+            }
+            // console.log(sumTech);
+            // console.log(sprints.length); 
+            var techAverage = Math.ceil(sumTech / sprints.length);
+            // console.log(techAverage); 
+            studentsTechAverages.push([students[student].name, techAverage]);
+            if (techAverage >= 1260) {
+              studentsAboveAverage += 1;
+            }
+          }
+          totalStudents += students.length;
+          console.log(studentsTechAverages);
+          // console.log(studentsAboveAvaragePerGeneration);
+          console.log(studentsAboveAverage);
+          console.log(totalStudents);
+          var studentsBellowAverage = totalStudents - studentsAboveAverage;
+          var array = [];
+          array.push(["acima da média", studentsAboveAverage], ["abaixo da média", studentsBellowAverage]);
+          var techPercentage = Math.round((studentsAboveAverage * 100) / totalStudents);
+          console.log(techPercentage);
+          // var notas = document.createElement("p");
+          // notas.textContent = techPercentage;
+          // testePrint.append(notas);
+          return array;
+        }
+
+        function drawBasic() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string','situação');
+          data.addColumn('number','quantidade');
+          data.addRows(techPercentage());
+
+          var options = {
+            'title': 'Envolvimento',
+            'pieHole': 0.4,
+            'pieSliceText': 'percentage',
+            'pieSliceTextStyle': {color: '#404040', fontSize: 15 },
+            'colors': ['#FCFF83', '#FCC9E2']
+          };
+          var chart = new google.visualization.PieChart(document.getElementById('tech-percentage'));
+          chart.draw(data, options);
+        }
+
+    </script>
+  </body>
+</html>

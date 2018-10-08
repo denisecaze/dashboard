@@ -1,0 +1,409 @@
+/* Configurações gerais */
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #F7F7F7;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho */
+.header {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.header-top {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid grey;
+  background-color: #FFE521;
+}
+
+.background-img {
+  background-image: url("../assets/images/background-img.png");
+  background-position: -160px -85px;
+}
+
+.login {
+  margin: 100px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF;
+  font-size: 14px;
+  border: 1px solid;
+  padding: 30px 60px;
+  border: 1px solid #EEE;
+  box-shadow: 3px 5px 10px rgba(114, 114, 114, .2);
+}
+
+.username, .password {
+  border: none;
+  border-bottom: 2px solid #000;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.username:focus, .password:focus {
+  outline-color: #FFE521;
+}
+
+.btn-login {
+  background-color: #FFE521;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: #808080;
+  color: #FFF;
+}
+
+.logo {
+  width: 280px;
+  height: 80px;
+}
+
+.logo-login {
+  width: 400px;
+  height: 110px;
+}
+
+.user {
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 40px;
+}
+
+.profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.logout {
+  text-decoration: none;
+  background-color: #ddd;
+  color: grey;
+  font-family: inherit;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid white;
+  padding: 2px 2px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background-color: #FCC9E2;
+}
+
+.menu {
+ width: 100%;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+}
+
+.group-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+#local-menu, #generation-menu {
+  width: 210px;
+  height: 30px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(http://www.webcis.com.br/images/imagens-noticias/select/ico-seta-appearance.gif) no-repeat #eeeeee;
+  background-position: 180px center;
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  padding-left: 8px;
+  outline: 0;
+}
+
+/* Principal */
+.main {
+  width: 100%;
+  height: 755px;
+  display: grid;
+  grid-template-columns: 3% 11% 8% 13% 11% 11% 13% 11% 12%;
+  grid-template-rows: 34% 34% 29%;
+  grid-template-areas:
+    "label-a chart-a chart-a chart-a chart-b chart-b chart-b chart-c chart-c"
+    "label-a chart-a chart-a chart-a chart-b chart-b chart-b chart-d chart-d"
+    "label-b chart-e chart-e chart-f chart-f chart-g chart-g chart-h chart-h";
+  grid-gap: 10px;
+  justify-content: center;
+  padding: 15px 0px;
+}
+
+.styling {
+  background-color: white;
+  border-radius: 7px;
+  padding: 10px;
+  border: 1px solid #EEE;
+  box-shadow: 3px 5px 10px rgba(114, 114, 114, .1);
+}
+
+.label-a {
+  grid-area: label-a;
+  background-color: #A1FBC7;
+  border-radius: 0px;
+}
+
+.label-b {
+  grid-area: label-b;
+  background-color: #A1FBC7;
+  border-radius: 0px;
+}
+
+.vertical-text-1, .vertical-text-2 {
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  font-weight: bold;
+  letter-spacing: 1.6px;
+  font-size: 17px;
+}
+
+.vertical-text-1 {
+  margin-top: 270px;
+}
+
+.vertical-text-2 {
+  margin-top: 115px;
+}
+
+.chart-a {
+  grid-area: chart-a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tech-numbers, .hse-numbers {
+  width: 380px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#tech-quantities, #hse-quantities {
+  margin-right: 30px;
+}
+
+.chart-b {
+  grid-area: chart-b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-c {
+  grid-area: chart-c;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-d {
+  grid-area: chart-d;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-e {
+  grid-area: chart-e;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-f {
+  grid-area: chart-f;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-g {
+  grid-area: chart-g;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-h {
+  grid-area: chart-h;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Elementos criados no JavaScript*/
+.data {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #444242;
+  margin-top: 0px;
+}
+
+.data-nps {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+  color: #444242;
+  margin-top: 0px;
+}
+
+.text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  color: #444242;
+  margin-bottom: 2px;
+}
+
+.local {
+  margin: 0;
+  margin-top: 7px;
+  margin-left: 6%;
+  align-self: flex-start;
+  font-size: 20px;
+  font-weight: bold;
+  color: #808080;
+}
+
+.enrollment4 {
+  color: #FF009E;
+}
+
+.achievment4, .satisfaction2, .nps2, .teacher4, .jedi4 {
+  color: #56F89A;
+}
+
+.student-container {
+  background-color: #F7F7F7;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.box-profile {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  border: 1px solid #EEE;
+  box-shadow: 3px 5px 10px rgba(114, 114, 114, .1);
+  margin-bottom: 15px;
+}
+
+.student-photo {
+  width: 200px;
+  height: 200px;
+  opacity: 0.3;
+}
+
+.box-info {
+  width: 60%;
+}
+
+.box-scores {
+  height: 200px;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  background-color: #F7F7F7;
+  border: 1px solid #FF009E;
+}
+
+.none {
+  display: none;
+}
+
+.dash-local {
+  color: grey;
+  text-decoration: none; 
+  margin-left: 20px;
+}
+
+.group-local {
+  display: flex;
+  flex-direction: row;
+  width: 750px;
+}
+
+.student-local {
+margin-left: 20px;
+margin-top: 3px;
+}
+
+.student-local-link {
+  text-decoration: none;
+  color: grey;
+}
+
+.student-local-btn {
+  text-decoration: none;
+  background-image: linear-gradient(to bottom, #ffecd2 0%, #FCC9E2 51%);
+  color: grey;
+  font-family: inherit;
+  font-size: 13px;
+  text-align: center;
+  box-shadow: 3px 5px 10px rgba(114, 114, 114, .1);
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.student-local-btn:hover {
+  background-color: #ddd;
+}
+

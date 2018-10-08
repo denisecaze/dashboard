@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+  <head>
+    <meta charset="utf-8">
+    <title>Laboratoria</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon-lab-amarelo.png">
+    <!-- Link para arquivo CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,800" rel="stylesheet">
+    <!-- Gráficos -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+    <!-- Cabeçalho -->
+    <header class="header">
+      <div class="header-top">
+        <a href="dashboard.html"><img class="logo" src="assets/images/logo-lab.png"></a>
+        <div class="user">
+          <img class="profile" src="assets/images/profile.jpg">
+          <a class="logout" href="index.html">logout</a>
+        </div>
+      </div>
+      <div class="menu">
+        <div class="group-local">
+          <p id="local" class="local"></p>
+          <p class="local student-local"></p>
+        </div>
+        <div class="group-menu">
+          <select id="local-menu">
+          </select>
+          <select id="generation-menu">
+          </select>
+        </div>
+      </div>
+    </header>
+    <!-- Principal -->
+    <main name="dashboard" class="main">
+      <div class="label-a styling">
+        <p class="vertical-text-1">ALUNAS</p>
+      </div>
+      <div class="label-b styling">
+        <p class="vertical-text-2">EQUIPE</p>
+      </div>
+      <div class="chart-a styling">
+        <div class="tech-numbers">
+          <div id="tech-percentage"></div>
+          <div id="tech-quantities">
+            <p class="text tech1"></p>
+            <p class="data tech2"></p>
+            <p class="text tech3"></p>
+            <p class="data tech4"></p>
+          </div>
+        </div>
+        <div id="tech-skills"></div>
+      </div>
+      <div class="chart-b styling">
+        <div class="hse-numbers">
+          <div id="hse-percentage"></div>
+          <div id="hse-quantities">
+            <p class="text hse1"></p>
+            <p class="data hse2"></p>
+            <p class="text hse3"></p>
+            <p class="data hse4"></p>
+          </div>
+        </div>
+        <div id="hse-skills"></div>
+      </div>
+      <div class="chart-c styling">
+        <div id="enrollment"></div>
+        <div id="enrollment-drop">
+          <p class="text enrollment1"></p>
+          <p class="data enrollment2"></p>
+          <p class="text enrollment3"></p>
+          <p class="data enrollment4"></p>
+        </div>
+      </div>
+      <div class="chart-d styling">
+        <div id="achievement"></div>
+        <div class="achievement-percentual">
+          <p class="text achievment1"></p>
+          <p class="data achievment2"></p>
+          <p class="text achievment3"></p>
+          <p class="data achievment4"></p>
+        </div>
+      </div>
+      <div class="chart-e styling">
+        <div id="students-satisfaction"></div>
+        <div id="satisfaction-quantities">
+          <p class="text satisfaction1"></p>
+          <p class="data satisfaction2"></p>
+        </div>
+      </div>
+      <div class="chart-f styling">
+        <div id="net-promoter-score"></div>
+        <div id="nps-average">
+          <p class="text nps1"></p>
+          <p class="data nps2"></p>
+          <p class="data-nps nps3"></p>
+          <p class="data-nps nps4"></p>
+          <p class="data-nps nps5"></p>
+        </div>
+      </div>
+      <div class="chart-g styling">
+        <div id="teaching-rating"></div>
+        <div class="teaching-average">
+          <p class="text teacher1"></p>
+          <p class="data teacher2"></p>
+          <p class="text teacher3"></p>
+          <p class="data teacher4"></p>
+        </div>
+      </div>
+      <div class="chart-h styling">
+        <div id="jedi-rating"></div>
+        <div id="jedi-average">
+          <p class="text jedi1"></p>
+          <p class="data jedi2"></p>
+          <p class="text jedi3"></p>
+          <p class="data jedi4"></p>
+        </div>
+      </div>
+    </main>
+    <main name="student-container" class="student-container styling none"></main>
+    <!-- Link para arquivo JSON -->
+    <script type="text/javascript" src="js/data.js"></script>
+    <!-- Link para arquivo JS -->
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+</html>

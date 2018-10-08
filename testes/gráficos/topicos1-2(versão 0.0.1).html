@@ -1,0 +1,122 @@
+<!-- 1.1.  O número total de alunas presentes pela sede e geração. Barra stacked  
+1.2.  A porcentagem de alunas desistentes. Quadro com números
+Por sede. O gráfico mostra, em cada barra de geração, o total, quantas concluíram e desistiram. Nos quadrados, quantas se matricularam, quantas concluíram e quantas desistiram. -->
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Teste</title>
+    </head>
+    <body>
+      <select id="local-menu">
+      </select>
+
+      <select id="generation-menu">
+      </select>
+
+      <div id="enrollment" style="width: 900px; height: 500px;"></div>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript" src="data.js"></script>
+      <script type="text/javascript">
+
+        var localMenu = document.getElementById("local-menu");
+        var generationMenu = document.getElementById("generation-menu");
+
+        window.onload = loadMenuLocal();
+        localMenu.addEventListener("change", loadMenuGeneration);
+        generationMenu.addEventListener("change", drawBasic);
+
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(enrollment);
+
+        function loadMenuLocal(){
+          var dropMenu = document.getElementById("local-menu");
+          dropMenu.innerHTML = "";
+          var name = document.createElement("option");
+          name.innerHTML = "Sede";
+          name.value = "name";
+          dropMenu.appendChild(name);
+          for(place in data){
+            var itemMenu = document.createElement("option");
+            console.log(place);
+            itemMenu.value = place;
+            itemMenu.innerHTML = place;
+            dropMenu.appendChild(itemMenu);
+          }
+        }
+
+        function loadMenuGeneration(){
+          var place = localMenu.value;
+          var dropMenu = document.getElementById("generation-menu");
+          dropMenu.innerHTML = "";
+          var name = document.createElement("option");
+          name.innerHTML = "Turma";
+          name.value = "name";
+          dropMenu.appendChild(name);
+          for(generation in data[place]){
+            // var group = data[place][generation];
+            console.log(place, generation);
+            var itemMenu = document.createElement("option");
+            itemMenu.value = generation;
+            itemMenu.innerHTML = generation;
+            dropMenu.appendChild(itemMenu);
+          }
+        }
+
+        function enrollment() {
+          var place = localMenu.value;
+          var generation = generationMenu.value;
+          var seatEnrollment = [];
+          var students = data[place][generation]['students'];
+          console.log(students);
+          var activeStudents = 0;
+          var inactiveStudents = 0;
+          var activity = [];
+          var inactivity = [];
+          var generationEnrollment = [];
+          console.log(generation);
+          for (student in students) {
+            var totalStudents = students.length;
+            console.log(students[student].name);
+            console.log(students[student].active);
+            if (students[student].active === true) {
+              activeStudents += 1;
+              activity.push(students[student].name);
+            } else {
+              inactiveStudents += 1;
+              inactivity.push(students[student].name);
+            }
+            generationEnrollment = [activeStudents, inactiveStudents];
+          }
+          console.log(totalStudents);
+          console.log(activity);
+          console.log(inactivity);
+          console.log(activeStudents);
+          var array = [["concluintes", activeStudents], ["desistentes", inactiveStudents]];
+          console.log(array);
+          console.log(inactiveStudents);
+          console.log(generationEnrollment);
+          seatEnrollment.push(generationEnrollment);
+          return array;
+        }
+
+        function drawBasic() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string','situação');
+          data.addColumn('number','quantidade');
+          data.addRows(enrollment());
+          var options = {
+            'title': 'Envolvimento',
+            'pieHole': 0.4,
+            'pieSliceText': 'percentage',
+            'pieSliceTextStyle': {color: '#404040', fontSize: 15 },
+            'colors': ['#FCFF83', '#FCC9E2']
+          };
+          var chart = new google.visualization.PieChart(document.getElementById('enrollment'));
+          chart.draw(data, options);
+        }
+
+      </script>
+    </body>
+  </html>
