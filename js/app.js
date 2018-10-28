@@ -1,120 +1,104 @@
 // CARREGAMENTO DOS MENUS
-var localMenu = document.getElementById("local-menu");
-var generationMenu = document.getElementById("generation-menu");
+const localMenu = document.getElementById("local-menu");
+const generationMenu = document.getElementById("generation-menu");
 window.onload = loadMenuLocal();
 
 // VARIÁVEIS PARA MENU E SECTIONS
-var menu = document.querySelector(".menu");
-var selectorMenu = document.querySelector("group-menu")
-var overviewPage = document.querySelector(".main");
-var studentsPage = document.querySelector(".student-container");
-var studentsLink = document.querySelector(".student-local");
-var dashboardLink = document.querySelector("#local");
-var insertInfo = document.querySelector(".student-container");
-var groupLocal = document.querySelector(".group-local");
-
+const overviewPage = document.querySelector(".main");
+const studentsPage = document.querySelector(".student-container");
+const studentsLink = document.querySelector(".student-local");
+const dashboardLink = document.querySelector("#local");
+const insertInfo = document.querySelector(".student-container");
 
 // EVENTOS
 localMenu.addEventListener("change", loadMenuGeneration);
 localMenu.addEventListener("change", clearSections);
 generationMenu.addEventListener("change", drawChart);
 generationMenu.addEventListener("change", placeName);
+generationMenu.addEventListener("change", showDashboard);
 generationMenu.addEventListener("change", infoStudents);
 dashboardLink.addEventListener("click", clearSections);
 studentsLink.addEventListener("click", infoStudents);
 studentsLink.addEventListener("click", changeToStudents);
 
-// EVENTOS PARA GRÁFICOS
-google.charts.load("current", {packages: ["corechart", "bar"]});
-google.charts.setOnLoadCallback(techSkills);
-google.charts.setOnLoadCallback(techPercentage);
-google.charts.setOnLoadCallback(hseSkills);
-google.charts.setOnLoadCallback(hsePercentage);
-google.charts.setOnLoadCallback(enrollment);
-google.charts.setOnLoadCallback(achievement);
-google.charts.setOnLoadCallback(studentsSatisfaction);
-google.charts.setOnLoadCallback(netPromoterScore);
-google.charts.setOnLoadCallback(ratingMentors);
-google.charts.setOnLoadCallback(ratingJedi);
-
-// FUNÇÕES DE MENU
 // FUNÇÃO DO MENU DE SEDE
 function loadMenuLocal() {
- var dropMenu = document.getElementById("local-menu");
- dropMenu.innerHTML = "";
- var name = document.createElement("option");
- name.innerHTML = "Selecione uma sede";
- name.value = "name";
- dropMenu.appendChild(name);
- for (place in data) {
-   var itemMenu = document.createElement("option");
-   itemMenu.value = place;
-   if (place === 'AQP') {
+  localMenu.innerHTML = "";
+  const name = document.createElement("option");
+  name.innerHTML = "Selecione uma sede";
+  localMenu.appendChild(name);
+  for (place in data) {
+    const itemMenu = document.createElement("option");
+    itemMenu.value = place;
+    if (place === "AQP") {
      itemMenu.innerHTML = "Arequipa";
-   } else if (place === 'CDMX') {
+    } else if (place === "CDMX") {
      itemMenu.innerHTML = "Cidade do México";
-   } else if (place === 'LIM') {
+    } else if (place === "LIM") {
      itemMenu.innerHTML = "Lima";
-   } else {
+    } else {
      itemMenu.innerHTML = "Santiago";
-   }
-   dropMenu.appendChild(itemMenu);
- }
+    }
+    localMenu.appendChild(itemMenu);
+  }
 }
 
 // FUNÇÃO DE MENU DE GERAÇÃO
 function loadMenuGeneration() {
-  var place = localMenu.value;
-  var dropMenu = document.getElementById("generation-menu");
-  dropMenu.innerHTML = "";
-  var name = document.createElement("option");
+  const place = localMenu.value;
+  generationMenu.innerHTML = "";
+  const name = document.createElement("option");
   name.innerHTML = "Selecione uma turma";
-  name.value = "name";
-  dropMenu.appendChild(name);
-  for(generation in data[place]){
-    var itemMenu = document.createElement("option");
+  generationMenu.appendChild(name);
+  for (generation in data[place]) {
+    const itemMenu = document.createElement("option");
     itemMenu.value = generation;
     itemMenu.innerHTML = generation;
-    dropMenu.appendChild(itemMenu);
+    generationMenu.appendChild(itemMenu);
   }
 }
 
 // FUNÇÃO DO TITULO
 function placeName() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var dashboardLink = document.querySelector('#local');
-  if (place === 'AQP' && generation === '2016-2') {
-    dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>AREQUIPA 2016-2</a>";
-    studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'AQP' && generation === '2017-1') {
-      dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>AREQUIPA 2017-1</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'CDMX' && generation === '2017-1') {
-      dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>CIDADE DO MÉXICO 2017-1</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'CDMX' && generation === '2017-2') {
-      dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>CIDADE DO MÉXICO 2017-2</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'LIM' && generation ==='2016-2') {
-      dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>LIMA 2016-2</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'LIM' && generation ==='2017-1') {
-      dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>LIMA 2017-1</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'LIM' && generation ==='2017-2') {
-     dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>LIMA 2017-2</a>";
-     studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'SCL' && generation === '2016-2') {
-      dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>SANTIAGO 2016-2</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'SCL' && generation === '2017-1') {
-     dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>SANTIAGO 2017-1</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
-  } else if (place === 'SCL' && generation === '2017-2') {
-      dashboardLink.innerHTML = "<a href='#dashboard' class='dash-local'>SANTIAGO 2017-2</a>";
-      studentsLink.innerHTML = "<button class='student-local-btn'><a class='student-local-link'href='#student-container'>ACESSAR PERFIL DAS ALUNAS</a></button>";
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const dashboardLink = document.querySelector("#local");
+  if (place === "AQP" && generation === "2016-2") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">AREQUIPA 2016-2</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "AQP" && generation === "2017-1") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">AREQUIPA 2017-1</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "CDMX" && generation === "2017-1") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">CIDADE DO MÉXICO 2017-1</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "CDMX" && generation === "2017-2") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">CIDADE DO MÉXICO 2017-2</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "LIM" && generation ==="2016-2") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">LIMA 2016-2</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "LIM" && generation ==="2017-1") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">LIMA 2017-1</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "LIM" && generation ==="2017-2") {
+   dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">LIMA 2017-2</a>`;
+   studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "SCL" && generation === "2016-2") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">SANTIAGO 2016-2</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "SCL" && generation === "2017-1") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">SANTIAGO 2017-1</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
+  } else if (place === "SCL" && generation === "2017-2") {
+    dashboardLink.innerHTML = `<a href="#dashboard" class="dash-local">SANTIAGO 2017-2</a>`;
+    studentsLink.innerHTML = `<a class="student-local-link student-local-btn" href="#student-container">ACESSAR PERFIL DAS ALUNAS</a>`;
   }
+}
+
+// FUNÇÃO PARA APARECER O MAIN
+function showDashboard() {
+  overviewPage.classList.remove("none");
 }
 
 // FUNÇÃO PARA LIMPAR A TELA
@@ -138,217 +122,200 @@ function changeToStudents() {
   dashboardLink.style.textDecoration = "underline";
 }
 
-
-// FUNÇÕES DE DADOS
 // FUNÇÃO DAS NOTAS TECH
 function techSkills() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var students = data[place][generation]["students"];
-  var studentsTechAverages = [];
-  var expectedTechAverage = 1260;
-  var totalStudents = 0;
-  var studentsAboveAverage = 0;
-  for (student in students) {
-    if (Object.keys(students[student]).length !== 0) {
-      var sprints = students[student]["sprints"];
-      var sumTech = 0;
-      var sumHse = 0;
-      for (sprint in sprints) {
-        var techMark = sprints[sprint]["score"]["tech"];
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const students = data[place][generation]["students"];
+  const expectedTechAverage = 1260;
+  let studentsTechAverages = [];
+  let studentsAboveAverage = 0;
+  for (student of students) {
+    if (Object.keys(student).length !== 0) {
+      const sprints = student["sprints"];
+      let sumTech = 0;
+      for (sprint of sprints) {
+        let techMark = sprint["score"]["tech"];
         sumTech += techMark;
       }
-      var techAverage = Math.round(sumTech / sprints.length);
-      studentsTechAverages.push([students[student].name, techAverage]);
-      if (techAverage >= 1260) {
+      const techAverage = Math.round(sumTech / sprints.length);
+      studentsTechAverages.push([student.name, techAverage]);
+      if (techAverage >= expectedTechAverage) {
         studentsAboveAverage += 1;
       }
     }
   }
-  totalStudents += students.length;
-  var percentual = Math.round((studentsAboveAverage * 100) / totalStudents);
   return studentsTechAverages;
 }
 
 // FUNÇÃO DE APROVAÇÃO DE NOTAS TECH
 function techPercentage() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var students = data[place][generation]["students"];
-  var studentsTechAverages = [];
-  var expectedTechAverage = 1260;
-  var totalStudents = 0;
-  var studentsAboveAverage = 0;
-  for (student in students) {
-    if (Object.keys(students[student]).length !== 0) {
-      var sprints = students[student]["sprints"];
-      var sumTech = 0;
-      var sumHse = 0;
-      for (sprint in sprints) {
-        var techMark = sprints[sprint]["score"]["tech"];
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const students = data[place][generation]["students"];
+  const expectedTechAverage = 1260;
+  let studentsTechAverages = [];
+  let totalStudents = 0;
+  let studentsAboveAverage = 0;
+  for (student of students) {
+    if (Object.keys(student).length !== 0) {
+      const sprints = student["sprints"];
+      let sumTech = 0;
+      for (sprint of sprints) {
+        const techMark = sprint["score"]["tech"];
         sumTech += techMark;
       }
-      var techAverage = Math.round(sumTech / sprints.length);
-      studentsTechAverages.push([students[student].name, techAverage]);
-      if (techAverage >= 1260) {
+      const techAverage = Math.round(sumTech / sprints.length);
+      studentsTechAverages.push([student.name, techAverage]);
+      if (techAverage >= expectedTechAverage) {
         studentsAboveAverage += 1;
       }
     }
   }
-  totalStudents += students.length;
-  var studentsBellowAverage = totalStudents - studentsAboveAverage;
-  var array = [];
+  let studentsBellowAverage = (totalStudents += students.length) - studentsAboveAverage;
+  let array = [];
   array.push(["aprovadas", studentsAboveAverage], ["reprovadas", studentsBellowAverage]);
-  var techPercentage = Math.round((studentsAboveAverage * 100) / totalStudents);
   // CRIANDO E PRINTANDO INFORMAÇÕES NA TELA
-  var newPTextTotalStudents = document.querySelector('.tech1');
+  const newPTextTotalStudents = document.querySelector(".tech1");
   newPTextTotalStudents.textContent = "de um total de";
-  var newPTotalStudents = document.querySelector('.tech2');
+  const newPTotalStudents = document.querySelector(".tech2");
   newPTotalStudents.textContent = totalStudents;
-  var newPTextTotalAbove = document.querySelector('.tech3');
+  const newPTextTotalAbove = document.querySelector(".tech3");
   newPTextTotalAbove.textContent = "atingiram a meta";
-  var newPTotalAbove = document.querySelector('.tech4');
+  const newPTotalAbove = document.querySelector(".tech4");
   newPTotalAbove.textContent = studentsAboveAverage;
   return array;
 }
 
 // FUNÇÃO DAS NOTAS HSE
 function hseSkills() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var students = data[place][generation]["students"];
-  var studentsHseAverages = [];
-  var expectedHseAverage = 840;
-  var totalStudents = 0;
-  var studentsAboveAverage = 0;
-  for (student in students) {
-    if (Object.keys(students[student]).length !== 0) {
-      var sprints = students[student]["sprints"];
-      var sumHse = 0;
-      for (sprint in sprints) {
-        var hseMark = sprints[sprint]["score"]["hse"];
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const students = data[place][generation]["students"];
+  const expectedHseAverage = 840;
+  let studentsHseAverages = [];
+  let studentsAboveAverage = 0;
+  for (student of students) {
+    if (Object.keys(student).length !== 0) {
+      const sprints = student["sprints"];
+      let sumHse = 0;
+      for (sprint of sprints) {
+        const hseMark = sprint["score"]["hse"];
         sumHse += hseMark;
       }
-      var hseAverage = Math.round(sumHse / sprints.length);
-      studentsHseAverages.push([students[student].name, hseAverage]);
-      if (hseAverage >= 840) {
+      const hseAverage = Math.round(sumHse / sprints.length);
+      studentsHseAverages.push([student.name, hseAverage]);
+      if (hseAverage >= expectedHseAverage) {
         studentsAboveAverage += 1;
       }
     }
   }
-  totalStudents += students.length;
-  var percentual = Math.round((studentsAboveAverage * 100) / totalStudents);
   return studentsHseAverages;
 }
 
 // FUNÇÃO DE APROVAÇÃO DE NOTAS HSE
 function hsePercentage() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var students = data[place][generation]["students"];
-  var studentsHseAverages = [];
-  var expectedHseAverage = 840;
-  var totalStudents = 0;
-  var studentsAboveAverage = 0;
-  for (student in students) {
-    if (Object.keys(students[student]).length !== 0) {
-      var sprints = students[student]["sprints"];
-      var sumHse = 0;
-      for (sprint in sprints) {
-        var hseMark = sprints[sprint]["score"]["hse"];
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const students = data[place][generation]["students"];
+  const expectedHseAverage = 840;
+  let studentsHseAverages = [];
+  let totalStudents = 0;
+  let studentsAboveAverage = 0;
+  for (student of students) {
+    if (Object.keys(student).length !== 0) {
+      const sprints = student["sprints"];
+      let sumHse = 0;
+      for (sprint of sprints) {
+        let hseMark = sprint["score"]["hse"];
         sumHse += hseMark;
       }
-      var hseAverage = Math.round(sumHse / sprints.length);
-      studentsHseAverages.push([students[student].name, hseAverage]);
-      if (hseAverage >= 840) {
+      const hseAverage = Math.round(sumHse / sprints.length);
+      studentsHseAverages.push([student.name, hseAverage]);
+      if (hseAverage >= expectedHseAverage) {
         studentsAboveAverage += 1;
       }
     }
   }
-  totalStudents += students.length;
-  var studentsBellowAverage = totalStudents - studentsAboveAverage;
-  var array = [];
+  let studentsBellowAverage = (totalStudents += students.length) - studentsAboveAverage;
+  let array = [];
   array.push(["aprovadas", studentsAboveAverage], ["reprovadas", studentsBellowAverage]);
-  var hsePercentage = Math.round((studentsAboveAverage * 100) / totalStudents);
   // CRIANDO E PRINTANDO INFORMAÇÕES NA TELA
-    var newPTextTotalStudents = document.querySelector(".hse1");
+    const newPTextTotalStudents = document.querySelector(".hse1");
     newPTextTotalStudents.textContent = "de um total de";
-    var newPTotalStudents = document.querySelector(".hse2");
+    const newPTotalStudents = document.querySelector(".hse2");
     newPTotalStudents.textContent = totalStudents;
-    var newPTextTotalAbove = document.querySelector(".hse3");
+    const newPTextTotalAbove = document.querySelector(".hse3");
     newPTextTotalAbove.textContent = "atingiram a meta";
-    var newPTotalAbove = document.querySelector(".hse4");
+    const newPTotalAbove = document.querySelector(".hse4");
     newPTotalAbove.textContent = studentsAboveAverage;
   return array;
 }
 
 // FUNÇÃO DE QUANTAS ALUNAS ESTÃO ATIVAS E INATIVAS
 function enrollment() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var placeEnrollment = [];
-  var students = data[place][generation]["students"];
-  var activeStudents = 0;
-  var inactiveStudents = 0;
-  var activity = [];
-  var inactivity = [];
-  var generationEnrollment = [];
-  for (student in students) {
-    if (Object.keys(students[student]).length !== 0) {
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const students = data[place][generation]["students"];
+  let generationEnrollment = [];
+  let placeEnrollment = [];
+  let inactivity = [];
+  let activity = [];
+  let activeStudents = 0;
+  let inactiveStudents = 0;
+  for (student of students) {
+    if (Object.keys(student).length !== 0) {
       var totalStudents = students.length;
-      if (students[student].active === true) {
+      if (student.active) {
         activeStudents += 1;
-        activity.push(students[student].name);
+        activity.push(student.name);
       } else {
         inactiveStudents += 1;
-        inactivity.push(students[student].name);
+        inactivity.push(student.name);
       }
       generationEnrollment = [activeStudents, inactiveStudents];
     }
   }
-  var array = [["ativas", activeStudents], ["desistentes", inactiveStudents]];
+  let array = [["ativas", activeStudents], ["desistentes", inactiveStudents]];
   placeEnrollment.push(generationEnrollment);
-  var dropOutPercentage = Math.round((inactiveStudents * 100) / totalStudents);
+  let dropOutPercentage = Math.round((inactiveStudents * 100) / totalStudents);
   // CRIANDO E PRINTANDO INFORMAÇÕES NA TELA
-  var newPTextTotalStudents = document.querySelector(".enrollment1");
+  const newPTextTotalStudents = document.querySelector(".enrollment1");
   newPTextTotalStudents.textContent = "de um total de";
-  var newPTotalStudents = document.querySelector(".enrollment2");
+  const newPTotalStudents = document.querySelector(".enrollment2");
   newPTotalStudents.textContent = totalStudents;
-  var newPTextTotalAbove = document.querySelector(".enrollment3");
+  const newPTextTotalAbove = document.querySelector(".enrollment3");
   newPTextTotalAbove.textContent = "desistiram";
-  var newPTotalAbove = document.querySelector(".enrollment4");
+  const newPTotalAbove = document.querySelector(".enrollment4");
   newPTotalAbove.textContent = dropOutPercentage.toFixed(1) + "%";
   return array;
 }
 
-// FUNÇÃO DE META dos 70% TECH E HSE
+// FUNÇÃO DE META DOS 70% TECH E HSE
 function achievement() {
   var place = localMenu.value;
   var generation = generationMenu.value;
-  var students = data[place][generation]['students'];
+  var students = data[place][generation]["students"];
   var expectedTechAverage = 1260;
   var expectedHseAverage = 840;
   var studentsPerPlace = 0;
   var totalStudentsAboveAverage = 0;
   var studentsAboveAvarage = 0;
-  var studentsUnderAvarage = 0;
   var array = [[], [], [], []];
   var studentsTechHseAverages = [];
-  for (student in students) {
-    if (Object.keys(students[student]).length !== 0) {
-      var totalStudentsAboveAverage = 0;
-      var sprints = students[student]['sprints'];
+  for (student of students) {
+    if (Object.keys(student).length !== 0) {
+      var sprints = student["sprints"];
       var sumTech = 0;
       var sumHse = 0;
-      for (sprint in sprints) {
-        if (sprints[sprint].length !== 0) {
-          var numberSprint = sprints[sprint]['number'];
-          var techMark = sprints[sprint]['score']['tech'];
-          var hseMark = sprints[sprint]['score']['hse'];
+      for (index in sprints) {
+        if (sprints[index].length !== 0) {
+          var techMark = sprints[index]["score"]["tech"];
+          var hseMark = sprints[index]["score"]["hse"];
           sumTech += techMark;
           sumHse += hseMark;
-            if (students[student].sprints[sprint]['score']['tech'] >= expectedTechAverage && students[student].sprints[sprint]['score']['hse'] >= expectedHseAverage) {
-              array[sprint].push(students[student].name);
+          if (student.sprints[index]["score"]["tech"] >= expectedTechAverage && student.sprints[index]["score"]["hse"] >= expectedHseAverage) {
+              array[index].push(student.name);
             }
             var result = [];
             for (var i = 0; i < array.length; i++) {
@@ -361,15 +328,12 @@ function achievement() {
     }
     var techAverage = Math.round(sumTech / sprints.length);
     var hseAverage = Math.round(sumHse / sprints.length);
-    studentsTechHseAverages.push([students[student].name, techAverage, hseAverage]);
+    studentsTechHseAverages.push([student.name, techAverage, hseAverage]);
     if (techAverage >= expectedTechAverage && hseAverage >= expectedHseAverage) {
       studentsAboveAvarage += 1;
     }
   }
-  studentsPerPlace += students.length;
-  totalStudentsAboveAverage += studentsAboveAvarage;
-  studentsUnderAvarage = studentsPerPlace - studentsAboveAvarage;
-  var percentual = Math.round((totalStudentsAboveAverage * 100) / studentsPerPlace);
+  var percentual = Math.round(((totalStudentsAboveAverage += studentsAboveAvarage) * 100) / (studentsPerPlace += students.length));
   // PRINTANDO INFORMAÇÕES NA TELA
   var newPTextTotalStudents = document.querySelector(".achievment1");
   newPTextTotalStudents.textContent = "de um total de";
@@ -384,249 +348,212 @@ function achievement() {
 
 // FUNÇÃO DE SATISFAÇÃO DAS ALUNAS
 function studentsSatisfaction() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var studentsPlace = data[place][generation]['students'];
-  var ratings = data[place][generation]["ratings"];
-  var noCumpleAll = [];
-  var cumpleAll = [];
-  var superaAll = [];
-  var satisfaction = [];
-  var sumNoCumple = 0;
-  var sumCumple = 0;
-  var sumSupera = 0;
-  var sumCumplePlusSupera = 0;
-  var sumAll = 0;
-  var percentageSatisfaction = 0;
-  var sprintTotal = [];
-  var convertToStudentsSupera = 0;
-  var convertToStudentsNoCumple = 0;
-  for (studentPlace in studentsPlace) {
-  var totalStudents = studentsPlace.length;
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const studentsPlace = data[place][generation]["students"];
+  const ratings = data[place][generation]["ratings"];
+  let noCumpleAll = [];
+  let cumpleAll = [];
+  let superaAll = [];
+  let satisfaction = [];
+  let sumNoCumple = 0;
+  let sumCumple = 0;
+  let sumSupera = 0;
+  let percentageSatisfaction = 0;
+  let sprintTotal = [];
+  const totalStudents = studentsPlace.length;
+  for (rating of ratings) {
+    const students = rating["student"];
+    sprintTotal.push(rating["sprint"]);
+    noCumpleAll.push(students["no-cumple"]);
+    cumpleAll.push(students["cumple"]);
+    superaAll.push(students["supera"]);
   }
-  for (rating in ratings) {
-    var sprint = ratings[rating]['sprint'];
-    sprintTotal.push(sprint);
-    var students = ratings[rating]["student"];
-    for (student in students) {
-    var noCumple = students["no-cumple"];
-    var cumple = students["cumple"];
-    var supera = students["supera"];
-    }
-    noCumpleAll.push(noCumple);
-    cumpleAll.push(cumple);
-    superaAll.push(supera);
+  for (noCumple of noCumpleAll) {
+    sumNoCumple += noCumple;
   }
-  for (scores in noCumpleAll) {
-    sumNoCumple += noCumpleAll[scores];
+  for (cumple of cumpleAll) {
+    sumCumple += cumple;
   }
-  for (scores in cumpleAll) {
-    sumCumple += cumpleAll[scores];
+  for (supera of superaAll) {
+    sumSupera += supera;
   }
-  for (scores in superaAll) {
-    sumSupera += superaAll[scores];
-  }
-  sumCumplePlusSupera = sumCumple + sumSupera;
-  sumAll = sumNoCumple + sumCumple + sumSupera;
-  convertToStudentsSupera = (sumCumplePlusSupera * totalStudents) / (sprintTotal.length * 100);
-  convertToStudentsNoCumple = (sumNoCumple * totalStudents) / (sprintTotal.length * 100);
-  var convertStudensSuperaRound = Math.round(convertToStudentsSupera);
-  var convertStudensNoCumpleRound = Math.round(convertToStudentsNoCumple);
+  let sumCumplePlusSupera = sumCumple + sumSupera;
+  let convertToStudentsSupera = (sumCumplePlusSupera * totalStudents) / (sprintTotal.length * 100);
+  let convertToStudentsNoCumple = (sumNoCumple * totalStudents) / (sprintTotal.length * 100);
+  const convertStudensSuperaRound = Math.round(convertToStudentsSupera);
+  const convertStudensNoCumpleRound = Math.round(convertToStudentsNoCumple);
   percentageSatisfaction = (Math.round(convertToStudentsSupera) * 100) / totalStudents;
   satisfaction.push(["satisfeitas", convertStudensSuperaRound], ["insatisfeitas", convertStudensNoCumpleRound]);
   // PRINTANDO INFORMAÇÕES NA TELA
-  var newPTextSatisfactionCumple = document.querySelector(".satisfaction1");
+  const newPTextSatisfactionCumple = document.querySelector(".satisfaction1");
   newPTextSatisfactionCumple.textContent = "satisfeitas ou excedem";
-  var newPPercentageSatisfaction = document.querySelector(".satisfaction2");
+  const newPPercentageSatisfaction = document.querySelector(".satisfaction2");
   newPPercentageSatisfaction.textContent = percentageSatisfaction.toFixed(1) +"%";
   return satisfaction;
 }
 
 // FUNÇÃO DE NET PROMOTER SCORE
 function netPromoterScore() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var ratings = data[place][generation]["ratings"];
-  var promotersAll = [];
-  var passiveAll = [];
-  var detractorsAll = [];
-  var sprintNps = [];
-  var sprintCountNps = [];
-  for (rating in ratings) {
-    var nps = ratings[rating]["nps"];
-    var sprint = ratings[rating]["sprint"];
-    for (n in nps) {
-      var promoters = nps["promoters"];
-      var passive = nps["passive"];
-      var detractors = nps["detractors"];
-      var countNPS = promoters - detractors;
-    }
-    promotersAll.push(promoters);
-    passiveAll.push(passive);
-    detractorsAll.push(detractors);
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const ratings = data[place][generation]["ratings"];
+  let promotersAll = [];
+  let passiveAll = [];
+  let detractorsAll = [];
+  let sprintNps = [];
+  let sprintCountNps = [];
+  for (rating of ratings) {
+    var nps = rating["nps"];
+    var sprint = rating["sprint"];
+    var countNPS = nps["promoters"] - nps["detractors"];
+    promotersAll.push(nps["promoters"]);
+    passiveAll.push(nps["passive"]);
+    detractorsAll.push(nps["detractors"]);
     sprintNps.push(countNPS);
     sprintCountNps.push(["Sprint " + sprint.toString(), countNPS]);
   }
-  var sumPromoters = 0;
-  var sumPassive = 0;
-  var sumDetractors = 0;
-  var sumAll = 0;
-  var averageNps = 0;
-  var totalNPS = 0;
-  var percentagePromoters = 0;
-  var percentagePassive = 0;
-  var percentageDetractors = 0;
-  for (scores in promotersAll) {
-    sumPromoters += promotersAll[scores];
+  let sumPromoters = 0;
+  let sumPassive = 0;
+  let sumDetractors = 0;
+  for (promoter of promotersAll) {
+    sumPromoters += promoter;
   }
-  for (scores in passiveAll) {
-    sumPassive += passiveAll[scores];
+  for (passive of passiveAll) {
+    sumPassive += passive;
   }
-  for (scores in detractorsAll) {
-    sumDetractors += detractorsAll[scores];
+  for (detractor of detractorsAll) {
+    sumDetractors += detractor;
   }
-  sumAll = (sumPromoters + sumPassive + sumDetractors);
-  totalNPS = sumPromoters - sumDetractors;
-  averageNps = totalNPS / sprintNps.length;
-  percentagePromoters = (sumPromoters * 100) / sumAll;
-  percentagePassive = (sumPassive * 100) / sumAll;
-  percentageDetractors = (sumDetractors * 100) / sumAll;
-  percentageNPS = (totalNPS * 100) / sumAll;
+  let sumAll = (sumPromoters + sumPassive + sumDetractors);
+  let totalNPS = sumPromoters - sumDetractors;
+  let averageNps = totalNPS / sprintNps.length;
+  let percentagePromoters = (sumPromoters * 100) / sumAll;
+  let percentagePassive = (sumPassive * 100) / sumAll;
+  let percentageDetractors = (sumDetractors * 100) / sumAll;
   // PRINTANDO INFORMAÇÕES NA TELA
-  var newPTextAverageNPS = document.querySelector(".nps1");
+  const newPTextAverageNPS = document.querySelector(".nps1");
   newPTextAverageNPS.textContent = "média total de";
-  var newPAverageNPS = document.querySelector(".nps2");
+  const newPAverageNPS = document.querySelector(".nps2");
   newPAverageNPS.textContent = averageNps.toFixed(1);
-  var newPTextPercentagePromoters = document.querySelector(".nps3");
+  const newPTextPercentagePromoters = document.querySelector(".nps3");
   newPTextPercentagePromoters.textContent = percentagePromoters.toFixed(1) + "% promoters";
-  var newPPercentagePassive = document.querySelector(".nps4");
+  const newPPercentagePassive = document.querySelector(".nps4");
   newPPercentagePassive.textContent = percentagePassive.toFixed(1) + "% passives";
-  var newPPercentageDetractors = document.querySelector(".nps5");
+  const newPPercentageDetractors = document.querySelector(".nps5");
   newPPercentageDetractors.textContent = percentageDetractors.toFixed(1) + "% detractors";
   return sprintCountNps;
 }
 
 // FUNÇÃO DE MÉDIA DOS MENTORES
 function ratingMentors() {
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var ratings = data[place][generation]["ratings"];
-  var resultMentors = [];
-  var marks = [];
-  var sprints = [];
-  var scores = [];
-  var generationAverage = [];
-  var placeMentorsMarks = [];
-  for (rating in ratings) {
-    var mentors = ratings[rating]["teacher"];
-    var sprint = ratings[rating]["sprint"];
-    marks.push(mentors);
-    sprints.push(sprint);
-    scores.push(["Sprint " + sprint.toString(), mentors]);
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const ratings = data[place][generation]["ratings"];
+  let resultMentors = [];
+  let marks = [];
+  let sprints = [];
+  let scores = [];
+  let generationAverage = [];
+  let placeMentorsMarks = [];
+  for (rating of ratings) {
+    marks.push(rating["teacher"]);
+    sprints.push(rating["sprint"]);
+    scores.push(["Sprint " + rating["sprint"].toString(), rating["teacher"]]);
   }
-  var sumMentorScore = 0;
-  var averageMentorScore = 0;
-  var percentageAverageMentor = 0;
-  for (mark in marks) {
-    sumMentorScore += marks[mark];
-    averageMentorScore = sumMentorScore / marks.length;
+  let sumMentorScore = 0;
+  let averageMentorScore = 0;
+  for (mark of marks) {
+    averageMentorScore = (sumMentorScore += mark) / marks.length;
   }
-  percentageAverageMentor = (averageMentorScore * 100) / 5;
+  let percentageAverageMentor = (averageMentorScore * 100) / 5;
   for (score of scores) {
-  resultMentors.push(score);
+    resultMentors.push(score);
   }
   generationAverage.push(Number(averageMentorScore.toFixed(1)));
   placeMentorsMarks.push(generation, marks);
   // PRINTANDO INFORMAÇÕES NA TELA
-  var newPTextAverageMentor = document.querySelector(".teacher1");
+  const newPTextAverageMentor = document.querySelector(".teacher1");
   newPTextAverageMentor.textContent = "média total de";
-  var newPAverageMentor = document.querySelector(".teacher2");
+  const newPAverageMentor = document.querySelector(".teacher2");
   newPAverageMentor.textContent = averageMentorScore.toFixed(1);
-  var newPTextPercentageMentor = document.querySelector(".teacher3");
+  const newPTextPercentageMentor = document.querySelector(".teacher3");
   newPTextPercentageMentor.textContent = "representa";
-  var newPPercentageMentor = document.querySelector(".teacher4");
+  const newPPercentageMentor = document.querySelector(".teacher4");
   newPPercentageMentor.textContent = percentageAverageMentor.toFixed(1) + "%";
   return resultMentors;
 }
 
-// FUNÇÃO DE MÉDIA DOS JEDI'S
+// FUNÇÃO DE MÉDIA DOS JEDI"S
 function ratingJedi(){
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var ratings = data[place][generation]["ratings"];
-  var resultJedi = [];
-  var marks = [];
-  var sprints = [];
-  var scores = [];
-  var generationAverage = [];
-  var placeJediMarks = [];
-  for (rating in ratings) {
-    var jedi = ratings[rating]["jedi"];
-    var sprint = ratings[rating]["sprint"];
-    marks.push(jedi);
-    sprints.push(sprint);
-    scores.push(["Sprint " + sprint.toString(), jedi]);
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const ratings = data[place][generation]["ratings"];
+  let resultJedi = [];
+  let marks = [];
+  let sprints = [];
+  let scores = [];
+  let generationAverage = [];
+  let placeJediMarks = [];
+  for (rating of ratings) {
+    marks.push(rating["jedi"]);
+    sprints.push(rating["sprint"]);
+    scores.push(["Sprint " + rating["sprint"].toString(), rating["jedi"]]);
   }
-  var sumJediScore = 0;
-  var averageJediScore = 0;
-  var percentageAverageJedi = 0;
-
-  for (mark in marks) {
-    sumJediScore += marks[mark];
-    averageJediScore = sumJediScore / marks.length;
+  let sumJediScore = 0;
+  let averageJediScore = 0;
+  for (mark of marks) {
+    averageJediScore = (sumJediScore += mark) / marks.length;
   }
-  percentageAverageJedi = (averageJediScore * 100) / 5;
+  let percentageAverageJedi = (averageJediScore * 100) / 5;
   for (score of scores) {
-  resultJedi.push(score);
+    resultJedi.push(score);
   }
   generationAverage.push(Number(averageJediScore.toFixed(1)));
   placeJediMarks.push(generation, marks);
   // PRINTANDO INFORMAÇÕES NA TELA
-  var newPTextAverageJedi = document.querySelector(".jedi1");
+  const newPTextAverageJedi = document.querySelector(".jedi1");
   newPTextAverageJedi.textContent = "média total de";
-  var newPAverageJedi = document.querySelector(".jedi2");
+  const newPAverageJedi = document.querySelector(".jedi2");
   newPAverageJedi.textContent = averageJediScore.toFixed(1);
-  var newPTextPercentageJedi = document.querySelector(".jedi3");
+  const newPTextPercentageJedi = document.querySelector(".jedi3");
   newPTextPercentageJedi.textContent = "representa";
-  var newPPercentageJedi = document.querySelector(".jedi4");
+  const newPPercentageJedi = document.querySelector(".jedi4");
   newPPercentageJedi.textContent = percentageAverageJedi.toFixed(1) + "%";
   return resultJedi;
 }
 
-
-
-
-
+// FUNÇÃO PARA EXIBIR INFOS INDIVIDUAIS DAS ESTUDANTES
 function infoStudents(){
-  var place = localMenu.value;
-  var generation = generationMenu.value;
-  var students = data[place][generation]["students"];
-  var insertInfo = document.querySelector(".student-container");
+  const place = localMenu.value;
+  const generation = generationMenu.value;
+  const students = data[place][generation]["students"];
+  const insertInfo = document.querySelector(".student-container");
   insertInfo.innerHTML="";
 
   for (student of students) {
-    var statusStudent = student.active;
-    var boxProfile = document.createElement("div");
-    var setPhoto = document.createElement("img");
-    var boxInfo = document.createElement("div");
-    var setName = document.createElement("h3");
-    var statusTitle = document.createElement("h5");
-    var statusValue = document.createElement("p");
-    var addInfo = document.createElement("h5");
-    var addInfoText = document.createElement("p");
-    var boxScores = document.createElement("div");
-    var boxTech = document.createElement("div");
-    var techTitle = document.createElement("h5");
-    var techText = document.createElement("p");
-    var boxHSE = document.createElement("div");
-    var hseTitle = document.createElement("h5");
-    var hseText = document.createElement("p");
+    const statusStudent = student.active;
+    const boxProfile = document.createElement("div");
+    const setPhoto = document.createElement("img");
+    const boxInfo = document.createElement("div");
+    const setName = document.createElement("h3");
+    const statusTitle = document.createElement("h5");
+    const statusValue = document.createElement("p");
+    const addInfo = document.createElement("h5");
+    const addInfoText = document.createElement("p");
+    const boxScores = document.createElement("div");
+    const boxTech = document.createElement("div");
+    const techTitle = document.createElement("h5");
+    const techText = document.createElement("p");
+    const boxHSE = document.createElement("div");
+    const hseTitle = document.createElement("h5");
+    const hseText = document.createElement("p");
 
-    var scoreTech = 0;
-    var averageTech = 0;
-    var scoreHSE = 0;
-    var averageHSE = 0;
-    var sprintLength = student.sprints.length;
+    let scoreTech = 0;
+    let averageTech = 0;
+    let scoreHSE = 0;
+    let averageHSE = 0;
+    let sprintLength = student.sprints.length;
 
     for (sprint of student.sprints) {
       scoreTech += sprint.score.tech;
@@ -635,8 +562,8 @@ function infoStudents(){
 
     averageTech = scoreTech / sprintLength;
     averageHSE = scoreHSE / sprintLength;
-    var percentageTech = (averageTech / 1800) * 100;
-    var percentageHSE;
+    let percentageTech = (averageTech / 1800) * 100;
+    let percentageHSE;
 
     if (isNaN(averageHSE)) {
       percentageHSE = 0;
@@ -653,7 +580,7 @@ function infoStudents(){
     setPhoto.src = student.photo;
     setName.innerHTML = student.name;
     statusTitle.innerHTML = "STATUS";
-    if (statusStudent == true) {
+    if (statusStudent) {
       statusValue.innerHTML = "Ativa";
     } else {
       statusValue.innerHTML = "Inativa";
@@ -688,21 +615,17 @@ function infoStudents(){
   }
 }
 
-
-
-
-
-
-
+// EVENTO PARA GRÁFICOS
+google.charts.load("current", {packages: ["corechart", "bar"]});
 
 // INÍCIO DOS GRÁFICOS
 function drawChart() {
 // GRÁFICO DA MÉDIA DOS SPRINTS TECH
-  var data = new google.visualization.DataTable();
+  const data = new google.visualization.DataTable();
   data.addColumn("string", "aluna");
   data.addColumn("number", "nota");
   data.addRows(techSkills());
-  var options = {
+  const options = {
     "title": "Média de todos sprints",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend":  {position: "end", maxLines: 2},
@@ -718,17 +641,17 @@ function drawChart() {
     "width": 430,
     "height": 270,
     "colors": ["#FCC9E2"]
-  };
-  var chart = new google.visualization.ColumnChart(
+  }
+  const chart = new google.visualization.ColumnChart(
   document.getElementById("tech-skills"));
   chart.draw(data, options);
 
 // GRÁFICO DA APROVAÇÃO DOS SPRINTS TECH
-  var data1 = new google.visualization.DataTable();
+  const data1 = new google.visualization.DataTable();
   data1.addColumn("string","situação");
   data1.addColumn("number","quantidade");
   data1.addRows(techPercentage());
-  var options1 = {
+  const options1 = {
     "title": "Aprovação Tech",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "center", position: "bottom"},
@@ -740,16 +663,16 @@ function drawChart() {
     "width": 190,
     "height": 190,
     "colors": ["#FCFF83", "#FCC9E2"]
-  };
-  var chart1 = new google.visualization.PieChart(document.getElementById("tech-percentage"));
+  }
+  const chart1 = new google.visualization.PieChart(document.getElementById("tech-percentage"));
   chart1.draw(data1, options1);
 
 // GRÁFICO DA MÉDIA DOS SPRINTS HSE
-  var data2 = new google.visualization.DataTable();
+  const data2 = new google.visualization.DataTable();
   data2.addColumn("string", "aluna");
   data2.addColumn("number", "nota");
   data2.addRows(hseSkills());
-  var options2 = {
+  const options2 = {
     "title": "Média de todos sprints",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {position: "end", maxLines: 2},
@@ -765,17 +688,17 @@ function drawChart() {
     "width": 430,
     "height": 260,
     "colors": ["#FCC9E2"]
-  };
-  var chart2 = new google.visualization.ColumnChart(
+  }
+  const chart2 = new google.visualization.ColumnChart(
   document.getElementById("hse-skills"));
   chart2.draw(data2, options2);
 
 // GRÁFICO DA APROVAÇÃO DOS SPRINTS TECH
-  var data3 = new google.visualization.DataTable();
+  const data3 = new google.visualization.DataTable();
   data3.addColumn("string","situação");
   data3.addColumn("number","quantidade");
   data3.addRows(hsePercentage());
-  var options3 = {
+  const options3 = {
     "title": "Aprovação HSE",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "center", position: "bottom"},
@@ -787,16 +710,16 @@ function drawChart() {
     "width": 220,
     "height": 190,
     "colors": ["#FCFF83", "#FCC9E2"]
-  };
-  var chart3 = new google.visualization.PieChart(document.getElementById("hse-percentage"));
+  }
+  const chart3 = new google.visualization.PieChart(document.getElementById("hse-percentage"));
   chart3.draw(data3, options3);
 
 // GRÁFICO DA QUANTIDADE DE ALUNAS ATIVAS E INATIVAS
-  var data4 = new google.visualization.DataTable();
+  const data4 = new google.visualization.DataTable();
   data4.addColumn("string","situação");
   data4.addColumn("number","quantidade");
   data4.addRows(enrollment());
-  var options4 = {
+  const options4 = {
     "title": "Matrículas",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "center", position: "bottom"},
@@ -808,16 +731,16 @@ function drawChart() {
     "width": 180,
     "height": 190,
     "colors": ["#FCFF83", "#FCC9E2"]
-  };
-  var chart4 = new google.visualization.PieChart(document.getElementById("enrollment"));
+  }
+  const chart4 = new google.visualization.PieChart(document.getElementById("enrollment"));
   chart4.draw(data4, options4);
 
 // GRÁFICO DA META 70% TECH E HSE
-  var data5 = new google.visualization.DataTable();
-  data5.addColumn('string', 'sprint');
-  data5.addColumn('number', 'alunas aprovadas');
+  const data5 = new google.visualization.DataTable();
+  data5.addColumn("string", "sprint");
+  data5.addColumn("number", "alunas aprovadas");
   data5.addRows(achievement());
-  var options5 = {
+  const options5 = {
     "title": "Atingiram a meta",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "start", position: "bottom"},
@@ -833,17 +756,17 @@ function drawChart() {
       minValue: 0,
       maxValue: 15,
     }
-  };
-  var chart5 = new google.visualization.ColumnChart(
-  document.getElementById('achievement'));
+  }
+  const chart5 = new google.visualization.ColumnChart(
+  document.getElementById("achievement"));
   chart5.draw(data5, options5);
 
 // GRÁFICO DA SATISFAÇÃO DAS ALUNAS
-  var data6 = new google.visualization.DataTable();
+  const data6 = new google.visualization.DataTable();
   data6.addColumn("string","turma");
   data6.addColumn("number","quantidade");
   data6.addRows(studentsSatisfaction());
-  var options6 = {
+  const options6 = {
     "title": "Satisfação das Alunas",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "center", position: "bottom"},
@@ -855,16 +778,16 @@ function drawChart() {
     "width": 190,
     "height": 190,
     "colors": ["#FCFF83", "#FCC9E2"]
-  };
-  var chart6 = new google.visualization.PieChart(document.getElementById("students-satisfaction"));
+  }
+  const chart6 = new google.visualization.PieChart(document.getElementById("students-satisfaction"));
   chart6.draw(data6, options6);
 
 // GRÁFICO DO NET PROMOTER SCORE
-  var data7 = new google.visualization.DataTable();
+  const data7 = new google.visualization.DataTable();
   data7.addColumn("string","sprint");
   data7.addColumn("number","média nps");
   data7.addRows(netPromoterScore());
-  var options7 = {
+  const options7 = {
     "title": "Net Promoter Score",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "start", position: "bottom"},
@@ -880,16 +803,16 @@ function drawChart() {
       ticks: [0,20,40,60,80,100],
       maxValue: 100
     }
-  };
-  var chart7 = new google.visualization.ColumnChart(document.getElementById("net-promoter-score"));
+  }
+  const chart7 = new google.visualization.ColumnChart(document.getElementById("net-promoter-score"));
   chart7.draw(data7, options7);
 
 // GRÁFICO DO DESEMPENHO DOS MENTORES
-  var data8 = new google.visualization.DataTable();
+  const data8 = new google.visualization.DataTable();
   data8.addColumn("string","sprint");
   data8.addColumn("number","nota");
   data8.addRows(ratingMentors());
-  var options8 = {
+  const options8 = {
     "title": "Desempenho Mentores",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "start", position: "bottom"},
@@ -905,16 +828,16 @@ function drawChart() {
       ticks: [0,1,2,3,4,5],
       maxValue: 5
     }
-  };
-  var chart8 = new google.visualization.ColumnChart(document.getElementById("teaching-rating"));
+  }
+  const chart8 = new google.visualization.ColumnChart(document.getElementById("teaching-rating"));
   chart8.draw(data8, options8);
 
-// GRÁFICO DO DESEMPENHO DOS JEDI'S
-  var data9 = new google.visualization.DataTable();
+// GRÁFICO DO DESEMPENHO DOS JEDI"S
+  const data9 = new google.visualization.DataTable();
   data9.addColumn("string","sprint");
   data9.addColumn("number","nota");
   data9.addRows(ratingJedi());
-  var options9 = {
+  const options9 = {
     "title": "Desempenho Jedi's",
     "titleTextStyle": {fontSize: 14, color: "#444242", fontName: "Montserrat", bold: true},
     "legend": {alignment: "start", position: "bottom"},
@@ -930,7 +853,7 @@ function drawChart() {
       ticks: [0,1,2,3,4,5],
       maxValue: 5
     }
-  };
-  var chart9 = new google.visualization.ColumnChart(document.getElementById("jedi-rating"));
+  }
+  const chart9 = new google.visualization.ColumnChart(document.getElementById("jedi-rating"));
   chart9.draw(data9, options9);
 }

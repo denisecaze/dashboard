@@ -9,7 +9,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: #F7F7F7;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 16px;
   margin: 0 auto;
 }
@@ -60,7 +60,7 @@ body {
 .username, .password {
   border: none;
   border-bottom: 2px solid #000;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin-bottom: 15px;
   padding: 10px;
 }
@@ -71,7 +71,7 @@ body {
 
 .btn-login {
   background-color: #FFE521;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   padding: 10px 20px;
@@ -143,9 +143,9 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url(http://www.webcis.com.br/images/imagens-noticias/select/ico-seta-appearance.gif) no-repeat #eeeeee;
+  background: url("http://www.webcis.com.br/images/imagens-noticias/select/ico-seta-appearance.gif") no-repeat #eeeeee;
   background-position: 180px center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   border: 1px solid #ddd;
   cursor: pointer;
   padding-left: 8px;
@@ -283,14 +283,14 @@ body {
 
 /* Elementos criados no JavaScript*/
 .data {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   color: #444242;
   margin-top: 0px;
 }
 
 .data-nps {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   font-size: 10px;
   color: #444242;
@@ -298,7 +298,7 @@ body {
 }
 
 .text {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 10px;
   color: #444242;
   margin-bottom: 2px;
@@ -401,9 +401,9 @@ margin-top: 3px;
   box-shadow: 3px 5px 10px rgba(114, 114, 114, .1);
   padding: 3px 8px;
   cursor: pointer;
+  border: 1px solid #FCC9E2;
 }
 
 .student-local-btn:hover {
-  background-color: #ddd;
+  border: 1px solid white;
 }
-
