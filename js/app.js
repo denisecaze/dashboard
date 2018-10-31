@@ -1,20 +1,21 @@
 // CARREGAMENTO DOS MENUS
 const localMenu = document.getElementById("local-menu");
 const generationMenu = document.getElementById("generation-menu");
-window.onload = loadMenuLocal();
+window.onload = loadLocalMenu();
 
 // VARIÁVEIS PARA MENU E SECTIONS
-const overviewPage = document.querySelector(".main");
+const overviewPage = document.querySelector(".dashboard-content");
+const welcomeMessage = document.querySelector(".welcome-message");
 const studentsPage = document.querySelector(".student-container");
 const studentsLink = document.querySelector(".student-local");
 const dashboardLink = document.querySelector("#local");
 const insertInfo = document.querySelector(".student-container");
 
 // EVENTOS
-localMenu.addEventListener("change", loadMenuGeneration);
+localMenu.addEventListener("change", loadGenerationMenu);
 localMenu.addEventListener("change", clearSections);
 generationMenu.addEventListener("change", drawChart);
-generationMenu.addEventListener("change", placeName);
+generationMenu.addEventListener("change", setPlaceName);
 generationMenu.addEventListener("change", showDashboard);
 generationMenu.addEventListener("change", infoStudents);
 dashboardLink.addEventListener("click", clearSections);
@@ -22,7 +23,7 @@ studentsLink.addEventListener("click", infoStudents);
 studentsLink.addEventListener("click", changeToStudents);
 
 // FUNÇÃO DO MENU DE SEDE
-function loadMenuLocal() {
+function loadLocalMenu() {
   localMenu.innerHTML = "";
   const name = document.createElement("option");
   name.innerHTML = "Selecione uma sede";
@@ -44,7 +45,7 @@ function loadMenuLocal() {
 }
 
 // FUNÇÃO DE MENU DE GERAÇÃO
-function loadMenuGeneration() {
+function loadGenerationMenu() {
   const place = localMenu.value;
   generationMenu.innerHTML = "";
   const name = document.createElement("option");
@@ -59,7 +60,7 @@ function loadMenuGeneration() {
 }
 
 // FUNÇÃO DO TITULO
-function placeName() {
+function setPlaceName() {
   const place = localMenu.value;
   const generation = generationMenu.value;
   const dashboardLink = document.querySelector("#local");
@@ -96,8 +97,10 @@ function placeName() {
   }
 }
 
-// FUNÇÃO PARA APARECER O MAIN
+
+// FUNÇÃO PARA EXIBIR O DASHBOARD
 function showDashboard() {
+  welcomeMessage.classList.add("none")
   overviewPage.classList.remove("none");
 }
 
@@ -832,7 +835,6 @@ function drawChart() {
   const chart8 = new google.visualization.ColumnChart(document.getElementById("teaching-rating"));
   chart8.draw(data8, options8);
 
-// GRÁFICO DO DESEMPENHO DOS JEDI"S
   const data9 = new google.visualization.DataTable();
   data9.addColumn("string","sprint");
   data9.addColumn("number","nota");

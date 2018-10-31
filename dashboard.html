@@ -36,92 +36,98 @@
       </div>
     </header>
     <!-- Principal -->
-    <main name="dashboard" class="main none">
-      <div class="label-a styling">
-        <p class="vertical-text-1">ALUNAS</p>
+    <section>
+      <div class="welcome-message">
+        <h1>Seja bem-vinda!</h1>
+        <h2>Para visualizar as informações selecione no menu acima a sede e a geração.</h2>
       </div>
-      <div class="label-b styling">
-        <p class="vertical-text-2">EQUIPE</p>
-      </div>
-      <div class="chart-a styling">
-        <div class="tech-numbers">
-          <div id="tech-percentage"></div>
-          <div id="tech-quantities">
-            <p class="text tech1"></p>
-            <p class="data tech2"></p>
-            <p class="text tech3"></p>
-            <p class="data tech4"></p>
+      <div name="dashboard" class="dashboard-content none">
+        <div class="label-a styling">
+          <p class="vertical-text-1">ALUNAS</p>
+        </div>
+        <div class="label-b styling">
+          <p class="vertical-text-2">EQUIPE</p>
+        </div>
+        <div class="chart-a styling">
+          <div class="tech-numbers">
+            <div id="tech-percentage"></div>
+            <div id="tech-quantities">
+              <p class="text tech1"></p>
+              <p class="data tech2"></p>
+              <p class="text tech3"></p>
+              <p class="data tech4"></p>
+            </div>
+          </div>
+          <div id="tech-skills"></div>
+        </div>
+        <div class="chart-b styling">
+          <div class="hse-numbers">
+            <div id="hse-percentage"></div>
+            <div id="hse-quantities">
+              <p class="text hse1"></p>
+              <p class="data hse2"></p>
+              <p class="text hse3"></p>
+              <p class="data hse4"></p>
+            </div>
+          </div>
+          <div id="hse-skills"></div>
+        </div>
+        <div class="chart-c styling">
+          <div id="enrollment"></div>
+          <div id="enrollment-drop">
+            <p class="text enrollment1"></p>
+            <p class="data enrollment2"></p>
+            <p class="text enrollment3"></p>
+            <p class="data enrollment4"></p>
           </div>
         </div>
-        <div id="tech-skills"></div>
-      </div>
-      <div class="chart-b styling">
-        <div class="hse-numbers">
-          <div id="hse-percentage"></div>
-          <div id="hse-quantities">
-            <p class="text hse1"></p>
-            <p class="data hse2"></p>
-            <p class="text hse3"></p>
-            <p class="data hse4"></p>
+        <div class="chart-d styling">
+          <div id="achievement"></div>
+          <div class="achievement-percentual">
+            <p class="text achievment1"></p>
+            <p class="data achievment2"></p>
+            <p class="text achievment3"></p>
+            <p class="data achievment4"></p>
           </div>
         </div>
-        <div id="hse-skills"></div>
-      </div>
-      <div class="chart-c styling">
-        <div id="enrollment"></div>
-        <div id="enrollment-drop">
-          <p class="text enrollment1"></p>
-          <p class="data enrollment2"></p>
-          <p class="text enrollment3"></p>
-          <p class="data enrollment4"></p>
+        <div class="chart-e styling">
+          <div id="students-satisfaction"></div>
+          <div id="satisfaction-quantities">
+            <p class="text satisfaction1"></p>
+            <p class="data satisfaction2"></p>
+          </div>
+        </div>
+        <div class="chart-f styling">
+          <div id="net-promoter-score"></div>
+          <div id="nps-average">
+            <p class="text nps1"></p>
+            <p class="data nps2"></p>
+            <p class="data-nps nps3"></p>
+            <p class="data-nps nps4"></p>
+            <p class="data-nps nps5"></p>
+          </div>
+        </div>
+        <div class="chart-g styling">
+          <div id="teaching-rating"></div>
+          <div class="teaching-average">
+            <p class="text teacher1"></p>
+            <p class="data teacher2"></p>
+            <p class="text teacher3"></p>
+            <p class="data teacher4"></p>
+          </div>
+        </div>
+        <div class="chart-h styling">
+          <div id="jedi-rating"></div>
+          <div id="jedi-average">
+            <p class="text jedi1"></p>
+            <p class="data jedi2"></p>
+            <p class="text jedi3"></p>
+            <p class="data jedi4"></p>
+          </div>
         </div>
       </div>
-      <div class="chart-d styling">
-        <div id="achievement"></div>
-        <div class="achievement-percentual">
-          <p class="text achievment1"></p>
-          <p class="data achievment2"></p>
-          <p class="text achievment3"></p>
-          <p class="data achievment4"></p>
-        </div>
-      </div>
-      <div class="chart-e styling">
-        <div id="students-satisfaction"></div>
-        <div id="satisfaction-quantities">
-          <p class="text satisfaction1"></p>
-          <p class="data satisfaction2"></p>
-        </div>
-      </div>
-      <div class="chart-f styling">
-        <div id="net-promoter-score"></div>
-        <div id="nps-average">
-          <p class="text nps1"></p>
-          <p class="data nps2"></p>
-          <p class="data-nps nps3"></p>
-          <p class="data-nps nps4"></p>
-          <p class="data-nps nps5"></p>
-        </div>
-      </div>
-      <div class="chart-g styling">
-        <div id="teaching-rating"></div>
-        <div class="teaching-average">
-          <p class="text teacher1"></p>
-          <p class="data teacher2"></p>
-          <p class="text teacher3"></p>
-          <p class="data teacher4"></p>
-        </div>
-      </div>
-      <div class="chart-h styling">
-        <div id="jedi-rating"></div>
-        <div id="jedi-average">
-          <p class="text jedi1"></p>
-          <p class="data jedi2"></p>
-          <p class="text jedi3"></p>
-          <p class="data jedi4"></p>
-        </div>
-      </div>
-    </main>
-    <main name="student-container" class="student-container styling none"></main>
+    </section>
+    <section name="student-container" class="student-container styling none"></section>
     <!-- Link para arquivo JSON -->
     <script type="text/javascript" src="js/data.js"></script>
     <!-- Link para arquivo JS -->
